@@ -110,47 +110,6 @@ public class AStar : MonoBehaviour
         return 1;
     }
 
-    /*private void RemoveUnreachableTail(List<GameObject> tail, GameObject snake)
-    {
-        List<GameObject> segmentsToRemove = new List<GameObject>();
-        foreach (GameObject t in tail)
-        {
-            float distance = Vector3.Distance(snake.transform.position, t.transform.position);
-            if(distance > tail.IndexOf(t) + 1)
-            {
-                segmentsToRemove.Add(t);
-            }
-        }
-
-        foreach(GameObject t in segmentsToRemove)
-        {
-            tail.Remove(t);
-        }
-    }*/
-
-    /* private (List<GameObject>, GameObject, List<GameObject>) SimulatedTail(List<Vector3> newPath, GameObject snake, List<GameObject> tail)
-     {
-         List<GameObject> simulatedTail = new List<GameObject>(tail);
-         List<GameObject> gameObjectsToDelete = new List<GameObject>();
-         GameObject simulatedSnake = new GameObject();
-         simulatedSnake.transform.position = snake.transform.position;
-         gameObjectsToDelete.Add(simulatedSnake);
-
-         foreach (Vector3 v in newPath)
-         {
-             GameObject newGO = new GameObject();
-             gameObjectsToDelete.Add(newGO);
-             newGO.transform.position = simulatedSnake.transform.position;
-             simulatedTail.Add(newGO);
-             if (newPath.IndexOf(v) != newPath.Count - 1)
-             {
-                 simulatedTail.RemoveAt(0);
-             }
-             simulatedSnake.transform.position = v;
-         }
-         return (simulatedTail, simulatedSnake, gameObjectsToDelete);
-     }*/
-
     private List<Vector3> CollectAllOpenMoves(GameObject snake, List<GameObject> originalTailCopy, Vector3 tailTip)
     {
         List<Vector3> openMoves = GetOpenNeighbors(snake.transform.position, originalTailCopy);
@@ -227,23 +186,16 @@ public class AStar : MonoBehaviour
 
     public (List<Vector3>, bool) AStarSearch(Vector3 start, Vector3 goal, List<GameObject> tail, GameObject snake, bool isChasingTail, bool isTailCheck)
     {
-        /*GameObject snakeOriginal = new GameObject();
-        snakeOriginal.name = "Snake original";
-        snakeOriginal.transform.position = snake.transform.position;*/
         List<GameObject> tailOriginal = new List<GameObject>(tail);
-        //RemoveUnreachableTail(tail, snake);
 
         List<Vector3> openSet = new List<Vector3>();
         openSet.Add(start);
-
-        //List<Vector3> cameFrom = new List<Vector3>();
+        
         Dictionary<Vector3, Vector3> cameFrom = new Dictionary<Vector3, Vector3>();
 
-        // gScores not in list should be treated as infinity
         Dictionary<Vector3, float> gScore = new Dictionary<Vector3, float>();
         gScore.Add(start, 0);
 
-        //List<float> fScore = new List<float>();
         Dictionary<Vector3, float> fScore = new Dictionary<Vector3, float>();
         fScore.Add(start, Heuristic(start, goal));
 
@@ -329,11 +281,10 @@ public class AStar : MonoBehaviour
         {
             List<GameObject> originalTailCopy = new List<GameObject>(tailOriginal);
             List<Vector3> deviation = CollectAllOpenMoves(snake, originalTailCopy, tailOriginal[0].transform.position); ;
-            if (deviation.Count > 0) // && Vector3.Distance(snake.transform.position, tailOriginal[tailOriginal.Count - 1].transform.position) < 1.1f)
+            if (deviation.Count > 0)
             {
                 return (deviation, true);
             }
-            //print("Tail not reachable2");
 
             return AStarSearch(snake.transform.position, tailOriginal[0].transform.position, tailOriginal, snake, true, false); // this empty list represents failure
         }
