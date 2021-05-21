@@ -51,7 +51,6 @@ public class HamiltonianSnake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //print("Path size: " + path.Count);
         if (!isGameOver)
         {
             if (Time.time > time + waitTime)
@@ -132,13 +131,8 @@ public class HamiltonianSnake : MonoBehaviour
             firstTail.transform.position = localPreviousPositons[0];
             if (isRealSnake)
             {
-                //List<Vector3> pathReceiver;
                 grid.PlaceFood();
                 CheckIfFoodOverlapsTail();
-                //List<GameObject> tailCopy = new List<GameObject>(localTail);
-
-                //(pathReceiver, isChasingTail) = aStar.AStarSearch(transform.position, grid.Goal.transform.position, tailCopy, localSnake, false, false);
-                //localPath.AddRange(pathReceiver);
             }
         }
         else
