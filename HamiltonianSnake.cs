@@ -27,9 +27,6 @@ public class HamiltonianSnake : MonoBehaviour
     static int wins = 0;
     static int losses = 0;
     static List<float> times = new List<float>();
-    
-
-
 
     // Start is called before the first frame update
     void Awake()
