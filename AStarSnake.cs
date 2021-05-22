@@ -8,36 +8,28 @@ using UnityEngine.SceneManagement;
 
 public class AStarSnake : MonoBehaviour
 {
+
+    public List<GameObject> Tail { get => tail; set => tail = value; }
+    
     [SerializeField] GameObject snakeTail;
+    
     Grid grid;
     List<Vector3> previousPositions = new List<Vector3>();
-
     List<GameObject> tail = new List<GameObject>();
-
     AStar aStar = new AStar();
-
     float time;
     float waitTime = .1f;
-
     List<Vector3> path;
-
     bool isChasingTail;
-
     bool removeWorked = false;
-
-    bool isGameOver = false;
+    bool isGameOver = false;    
+    float startTime;    
+    int tailChaseCount = 0;
 
     static int wins = 0;
     static int losses = 0;
     static List<float> times = new List<float>();
-
-    public List<GameObject> Tail { get => tail; set => tail = value; }
-
-    int tailChaseCount = 0;
-
     static int infiniteLoops = 0;
-
-    float startTime;
 
 
     // Start is called before the first frame update
