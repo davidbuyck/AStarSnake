@@ -7,30 +7,28 @@ using UnityEngine.SceneManagement;
 
 public class HamiltonianSnake : MonoBehaviour
 {
+
+    public List<GameObject> Tail { get => tail; set => tail = value; }
+    
     [SerializeField] GameObject snakeTail;
+    
     Grid grid;
     List<Vector3> previousPositions = new List<Vector3>();
-
     List<GameObject> tail = new List<GameObject>();
-
     HamiltonianPath hamPath;
-
+    
+    float startTime;
+    float time;
+    float waitTime = .001f;
+    List<Vector3> path;
+    bool removeWorked = false;
+    bool isGameOver = false;
+    
     static int wins = 0;
     static int losses = 0;
     static List<float> times = new List<float>();
+    
 
-    float time;
-    float waitTime = .001f;
-
-    List<Vector3> path;
-
-    bool removeWorked = false;
-
-    bool isGameOver = false;
-
-    float startTime;
-
-    public List<GameObject> Tail { get => tail; set => tail = value; }
 
 
     // Start is called before the first frame update
